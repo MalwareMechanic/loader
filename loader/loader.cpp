@@ -471,6 +471,10 @@ void Fillknockparam(LPVOID chunk,LPSTR str)
 	{
 label2:
 		call backe2
+		mov esp,[esp+8]
+		pop eax
+		mov fs:[0x00],eax
+		add esp,4
 	}
 	CWA(lstrcpyA,kernel32,bits,_b32);
 next:
